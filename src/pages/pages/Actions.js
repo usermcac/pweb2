@@ -28,16 +28,16 @@ class Actions extends React.Component {
     anchorEl: null
   };
 
-  onMapCreated(map) {
-    console.log('ONCREATEDMAP');
-    map.setOptions({
-      disableDefaultUI: true
-    });
-  }
+  // onMapCreated(map) {
+  //   console.log('ONCREATEDMAP');
+  //   map.setOptions({
+  //     disableDefaultUI: true
+  //   });
+  // }
  
-  onDragEnd(e) {
-    console.log('onDragEnd', e);
-  }
+  // onDragEnd(e) {
+  //   console.log('onDragEnd', e);
+  // }
  
   onCloseClick() {
     console.log('onCloseClick');

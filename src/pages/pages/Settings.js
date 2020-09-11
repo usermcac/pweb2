@@ -31,7 +31,7 @@ import {
   RemoveRedEye as RemoveRedEyeIcon
 } from "@material-ui/icons";
 import { spacing } from "@material-ui/system";
-
+import Moral from "./Modal"
 
 const coords = {
   lat: 13.7156481,
@@ -116,14 +116,7 @@ function Settings() {
           {/* <Public /> */}
           {/* <Private /> */}
           <MapsPlaces/>      
-            <Modal 
-              open={true}
-              onClose={Actions.open}
-              aria-labelledby="simple-modal-title"
-              aria-describedby="simple-modal-description"
-            >
-          moodal
-        </Modal>    
+          
         </Grid>
       </Grid>
     </React.Fragment>

@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
+import Moral from "./Modal"
 import {
     Button,
     CardMedia as MuiCardMedia,
@@ -150,7 +151,7 @@ class MapsPlaces extends React.Component {
             { this.state._isLoading &&
                 <LinearProgress />
             }   
-        
+                
                 <Map
                 google={this.props.google}
                 zoom={this.state.zoom}
@@ -171,7 +172,11 @@ class MapsPlaces extends React.Component {
                             position={{lat: item.lat, lng: item.lng}}                                        
                             onClick={this.onMarkerClick}    
                             title={item.title}    
-                            image={item.pic_url}            
+                            image={item.pic_url}    
+                            address={item.address}
+                            phone={item.phone_number}
+                            sched1={item.business_sched_1}
+                            sched2={item.business_sched_2}
                             icon={{
                                 url: "https://firebasestorage.googleapis.com/v0/b/aes-app-755d2.appspot.com/o/aes_marker.png?alt=media&token=efb74ce3-fbbf-455c-94df-651452723e66",
                                 anchor: new window.google.maps.Point(8,8),
@@ -185,15 +190,26 @@ class MapsPlaces extends React.Component {
                 visible={this.state.showingInfoWindow}
                 >  
                     <div>
-                    {/* <Paper mb={12} lg={12}>
-                        <CardMedia
+                    {/* <Moral/> */}
+                    
+                        {/* <CardMedia
                         image={this.state.selectedPlace.image} 
                         title={this.state.selectedPlace.name}         
-                        />                                                        
-                        <Typography gutterBottom variant="subtitle1" component="subtitle1">
-                        {this.state.selectedPlace.name}
-                        </Typography>
-                    </Paper>                         */}
+                        />                                                         */}
+
+                    
+                        <b>{this.state.selectedPlace.name}</b>
+                        <br></br>
+                        <br></br>                        
+                        {this.state.selectedPlace.address}
+                        <br></br>
+                        {this.state.selectedPlace.phone}
+                        <br></br>
+                        {this.state.selectedPlace.sched1}
+                        <br></br>
+                        {this.state.selectedPlace.sched2f}
+                    
+                                        
                     </div>                                            
                 </InfoWindow>        
         </Map>

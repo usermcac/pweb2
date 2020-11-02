@@ -27,10 +27,10 @@ function Page404() {
         404
       </Typography>
       <Typography component="h2" variant="h5" align="center" gutterBottom>
-        Page not found.
+        Página no encontrada.
       </Typography>
       <Typography component="h2" variant="body1" align="center" gutterBottom>
-        The page you are looking for might have been removed.
+        La página a la que intentas acceder no fue encontrada
       </Typography>
 
       <Button
@@ -40,7 +40,7 @@ function Page404() {
         color="secondary"
         mt={2}
       >
-        Return to website
+        Regresar al Portal Web de Clientes 
       </Button>
     </Wrapper>
   );

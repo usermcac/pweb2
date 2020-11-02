@@ -8,22 +8,56 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Moral from "./Modal"
+import Box from '@material-ui/core/Box';
 import {
-    Button,
-    CardMedia as MuiCardMedia,
-    Card as MuiCard,
-    Typography
+  CardActionArea,
+  CardActions,
+  CardContent,
+  Link,
+  Breadcrumbs as MuiBreadcrumbs,
+  Button as MuiButton,
+  Card as MuiCard,
+  CardMedia as MuiCardMedia,
+  Divider as MuiDivider,
+  Typography
 } from "@material-ui/core";
+import { elementClosest } from "@fullcalendar/core";
+import { spacing } from "@material-ui/system";
+const Card = styled(MuiCard)(spacing);
+const containerStyle = {
+  // position: 'relative',
+  background: 'red',
+  width: 'auto',
+  height: '60%'
+}
 
-
-const mapStyles = {
-  width: '80%',
-  height: '70%'
+const mapStyles = {  
+  width: '100%',
+  height: '100%',
+  
 };
 
+
+// const mapStyles = {
+//   width: '80%',
+//   height: '60%'
+// };
+
+const cardStyles = {
+  width: '80%',
+  height: '90%',
+  background: 'red'
+};
+// 80% y 70%
+
 const CardMedia = styled(MuiCardMedia)`
-  height: 320px;
+width: '80%',
+height: '90%',
+background: 'red'
 `;
+// const CardMedia = styled(MuiCardMedia)`
+//   height: 320px;
+// `;
 
 class MapsPlaces extends React.Component {
     
@@ -78,6 +112,7 @@ class MapsPlaces extends React.Component {
     }
   }
   
+  
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -109,7 +144,16 @@ class MapsPlaces extends React.Component {
         .then(res => {
           
           const places = res.data.data;
-          console.log("-->"+places);
+          places.forEach(function(part, index, theArray) {
+            
+            if(theArray[index].allow_reservations){
+              theArray[index].pic_url = "https://firebasestorage.googleapis.com/v0/b/aes-app-755d2.appspot.com/o/aes_marker.png?alt=media&token=efb74ce3-fbbf-455c-94df-651452723e66";
+            }
+            else{
+              theArray[index].pic_url = "https://firebasestorage.googleapis.com/v0/b/aes-app-755d2.appspot.com/o/ic_payment_place.png?alt=media&token=fc816efc-e30c-4f82-a2f3-ccb91dadc0df"
+            }
+          });
+          console.log(places);
           self.setState({ places });
           self.setState({ _isLoading:false });                
           
@@ -134,36 +178,43 @@ class MapsPlaces extends React.Component {
     axios.get(`https://mcacdvmobileapi001.azurewebsites.net/places/read?lt=`+Newlat+`&ln=`+Newlng)
         .then(res => {        
           const places = res.data.data;
-          console.log("-->"+places);
+          places.forEach(function(part, index, theArray) {
+            
+            if(theArray[index].allow_reservations){
+              theArray[index].pic_url = "https://firebasestorage.googleapis.com/v0/b/aes-app-755d2.appspot.com/o/aes_marker.png?alt=media&token=efb74ce3-fbbf-455c-94df-651452723e66";
+            }
+            else{
+              theArray[index].pic_url = "https://firebasestorage.googleapis.com/v0/b/aes-app-755d2.appspot.com/o/ic_payment_place.png?alt=media&token=fc816efc-e30c-4f82-a2f3-ccb91dadc0df"
+            }
+          });
+          //console.log("-->"+places);
           self.setState({ places });  
           self.setState({ _isLoading:false });                         
         })    
 
   }
   
-  render() {
-      //console.log("Render:",this.state.currentLatLng.lat,",",this.state.currentLatLng.lng);
-      const coords = { lat: this.state.lt, lng: this.state.ln };
-      //const classes = useStyles();
-        //console.log(this.props);
+  render() {      
+    const coords = { lat: this.state.lt, lng: this.state.ln };      
     return (
-      <div>
+      // <div style={mapStyles}>            
+      <Card mb={6}>
             { this.state._isLoading &&
                 <LinearProgress />
-            }   
-                
-                <Map
-                google={this.props.google}
-                zoom={this.state.zoom}
-                onReady={this.fetchPlaces}
-                className={'map_places'}
-                style={mapStyles}
-                initialCenter={coords}
-                center={{
-                    lat: this.state.lt,
-                    lng: this.state.ln
-                }}
-                onDragend={this.centerMoved}
+            }                 
+            
+                  <Map          
+                    containerStyle={containerStyle}          
+                    google={this.props.google}
+                    zoom={this.state.zoom}
+                    onReady={this.fetchPlaces}                    
+                    style={mapStyles}
+                    initialCenter={coords}
+                    center={{
+                        lat: this.state.lt,
+                        lng: this.state.ln
+                    }}
+                    onDragend={this.centerMoved}
                 >            
                     {   
                         this.state.places.map( (item, i) => 
@@ -178,7 +229,7 @@ class MapsPlaces extends React.Component {
                             sched1={item.business_sched_1}
                             sched2={item.business_sched_2}
                             icon={{
-                                url: "https://firebasestorage.googleapis.com/v0/b/aes-app-755d2.appspot.com/o/aes_marker.png?alt=media&token=efb74ce3-fbbf-455c-94df-651452723e66",
+                                url: item.pic_url,
                                 anchor: new window.google.maps.Point(8,8),
                                 scaledSize: new window.google.maps.Size(32,32)      
                                 }} 
@@ -189,15 +240,7 @@ class MapsPlaces extends React.Component {
                 marker={this.state.activeMarker}
                 visible={this.state.showingInfoWindow}
                 >  
-                    <div>
-                    {/* <Moral/> */}
-                    
-                        {/* <CardMedia
-                        image={this.state.selectedPlace.image} 
-                        title={this.state.selectedPlace.name}         
-                        />                                                         */}
-
-                    
+                    <div>                    
                         <b>{this.state.selectedPlace.name}</b>
                         <br></br>
                         <br></br>                        
@@ -207,14 +250,13 @@ class MapsPlaces extends React.Component {
                         <br></br>
                         {this.state.selectedPlace.sched1}
                         <br></br>
-                        {this.state.selectedPlace.sched2f}
-                    
-                                        
+                        {this.state.selectedPlace.sched2f}                                                            
                     </div>                                            
                 </InfoWindow>        
-        </Map>
-        
-      </div>
+        </Map> 
+                                     
+      {/* </div> */}
+      </Card>
     );
   }
 }

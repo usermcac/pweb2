@@ -4,7 +4,10 @@ import { NavLink as RouterNavLink } from "react-router-dom";
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
 import MapsPlaces from "./MapsPlaces"
 import Modal from '@material-ui/core/Modal';
-
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import { sizing } from '@material-ui/system';
+import Box from '@material-ui/core/Box';
 import Actions from "./Actions";
 
 import Helmet from 'react-helmet';
@@ -69,9 +72,20 @@ const BigAvatar = styled(Avatar)`
   margin: 0 auto ${props => props.theme.spacing(2)}px;
 `;
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    '& > *': {
+      margin: theme.spacing(1),
+      width: theme.spacing(16),
+      height: theme.spacing(16),
+    },
+  },
+}));
 
 function Settings() {
-  
+  const classes = useStyles();
   return (
     <React.Fragment>
       <Actions />
@@ -109,16 +123,55 @@ function Settings() {
 
       <Divider my={6} />
       
+      <Card mb={6}>
+      <CardContent>                
+        <Box mt={0}>
+          <MapsPlaces/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <Paper>
+          <Typography variant="h6" gutterBottom>
+          AGENCIA CONSTITUCIÓN
+        </Typography>
+        <Typography variant="body2" gutterBottom>
+          Calle a San Antonio Abad #5 San Salvador
+        </Typography>
+              
+          </Paper> 
+        </Box>
+      </CardContent>
+    </Card>
+
+      
 
 
-      <Grid container spacing={6}>
-        <Grid item xs={12}>
-          {/* <Public /> */}
-          {/* <Private /> */}
-          <MapsPlaces/>      
-          
+      
+{/* <Grid containerdirection="row"  spacing={2} lg={12} xl={12} >      
+        <Grid item lg={12} xl={12} >      
+          <MapsPlaces />          
+        </Grid>               
+        <Grid item xs={12} lg={12} xl={12}>
+          <Paper                 
+        >
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+              askdjaldkjasldjasldjaslkdjaslkdajsldkjasdlkasjdlkasjdlkasjdalskjdaslkdjaslkjdalsk
+          </Paper>           
         </Grid>
-      </Grid>
+      </Grid> */}
+
     </React.Fragment>
   );
 }

@@ -27,11 +27,10 @@ function Page500() {
         500
       </Typography>
       <Typography component="h2" variant="h5" align="center" gutterBottom>
-        Internal server error.
+        Error de servidor
       </Typography>
       <Typography component="h2" variant="body1" align="center" gutterBottom>
-        The server encountered something unexpected that didn't allow it to
-        complete the request.
+        El servidor no pudo resolver tu petición.
       </Typography>
 
       <Button
@@ -41,7 +40,7 @@ function Page500() {
         color="secondary"
         mt={2}
       >
-        Return to website
+        Regresar al Portal Web de Clientes
       </Button>
     </Wrapper>
   );

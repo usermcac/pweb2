@@ -70,6 +70,10 @@ const InvoiceDetails = async(() => import("../pages/pages/InvoiceDetails"));
 const InvoiceList = async(() => import("../pages/pages/InvoiceList"));
 const Orders = async(() => import("../pages/pages/Orders"));
 const Pricing = async(() => import("../pages/pages/Pricing"));
+const Denuncias = async(() => import("../pages/pages/Denuncias"));
+const ReportePeligros = async(() => import("../pages/pages/ReportePeligros"));
+const Interrupciones = async(() => import("../pages/pages/PowerOutages"));
+const Innovacion = async(() => import("../pages/pages/Innovacion"));
 const Profile = async(() => import("../pages/pages/Profile"));
 const Settings = async(() => import("../pages/pages/Settings"));
 const Tasks = async(() => import("../pages/pages/Tasks"));
@@ -128,29 +132,34 @@ const pagesRoutes = {
   icon: <Circle />,
   children: [
     {
-      path: "/pages/settings",
+      path: "/agencias-puntos-de-pago-aes",
       name: "Agencias y puntos de pago",
       component: Settings
     },
     {
-      path: "/pages/pricing",
+      path: "/noticias-aes",
       name: "Noticias",
       component: Pricing
     },
     {
-      path: "/pages/blank",
+      path: "/denuncias",
       name: "Denuncias de hurto",
-      component: Blank
+      component: Denuncias
     },
     {
-      path: "/pages/blank",
+      path: "/interrupciones",
       name: "Interrupciones programadas",
-      component: Blank
+      component: Interrupciones
     },
     {
-      path: "/pages/blank",
+      path: "/peligros-en-la-red",
+      name: "Reporte de peligros en la red",
+      component: ReportePeligros
+    },
+    {
+      path: "/innovacion",
       name: "Ideas de innovación",
-      component: Blank
+      component: Innovacion
     }
   ]
 };

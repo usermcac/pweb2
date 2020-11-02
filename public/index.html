@@ -30,5 +30,32 @@
          c.parentNode.insertBefore(n,c);
       }();
   </script>
+ 
+  <!-- Firebase -->
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAIBsCgLTU3OiUqq8wJYCl09bTFP4IHobo",
+    authDomain: "aes-app-755d2.firebaseapp.com",
+    databaseURL: "https://aes-app-755d2.firebaseio.com",
+    projectId: "aes-app-755d2",
+    storageBucket: "aes-app-755d2.appspot.com",
+    messagingSenderId: "661443106335",
+    appId: "1:661443106335:web:6de46bac7e3909d3a8272a",
+    measurementId: "G-5DBVHXN2R8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
   </body>
 </html>

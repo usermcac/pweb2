@@ -194,10 +194,12 @@ class OutlinedTextFields extends React.Component {
                                     }
                         }
                     )
-                        .then(res => {                            
+                        .then(res => {        
+                                              
                             ins.setState({ isLogged:true });                
                             console.log(res.data);
-                            var nics = res.data;
+                            var nics = [];
+                            nics = res.data;
                             res.data.forEach( function(urlact, indice, array) { 
                                 console.log(urlact);
                             });

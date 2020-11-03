@@ -119,8 +119,8 @@ class OutlinedTextFields extends React.Component {
           
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          
-          name = user.displayName;
+              console.log("Si hay usuario");
+              name = user.displayName;
               email = user.email;
               photoUrl = user.photoURL;
               emailVerified = user.emailVerified;
@@ -141,10 +141,12 @@ class OutlinedTextFields extends React.Component {
           var user = firebase.auth().currentUser;
           var name, email, photoUrl, uid, emailVerified, provider;
           if(isAnonymous){
+              console.log("Es anonimo");
               ins.handleAPIToken(email,uid,name,photoUrl,provider);
               ins.setState({ isLogged:false });                
           }   
           else{
+            console.log("NO ES ANONIMo");
             name = user.displayName;
             email = user.email;
             photoUrl = user.photoURL;
@@ -165,6 +167,7 @@ class OutlinedTextFields extends React.Component {
           //register to get token            
           ins.handleAPIToken(email,uid,name,photoUrl,provider)              
         } else {
+          console.log("no hay usuario")
           localStorage.setItem("uid", "");                    
         }
         // ...
@@ -178,6 +181,30 @@ class OutlinedTextFields extends React.Component {
       });
     
   }
+  handleReadMyNICS(){
+    //https://mcacdvmobileapi001.azurewebsites.net/user_profile/readNICS
+    var token = localStorage.getItem("token");
+    var ins = this;
+    axios.get(`https://app.movilaeswebdes.com/user_profile/readNICS`,                    
+                        {
+                            headers: {
+                                        'Authorization': 'Bearer '+token,
+                                        'Accept' : '*/*',
+                                        'Content-Type': 'application/json'
+                                    }
+                        }
+                    )
+                        .then(res => {                            
+                            ins.setState({ isLogged:true });                
+                            console.log(res.data);
+                            var nics = res.data;
+                            res.data.forEach( function(urlact, indice, array) { 
+                                console.log(urlact);
+                            });
+                        });
+                
+  }
+
   handleAPIToken(email,uid,name,photoUrl,provider){
     var ins = this;
     if(email==null || email == ""){              
@@ -216,6 +243,7 @@ class OutlinedTextFields extends React.Component {
         }
         else{
           ins.setState({ isLogged:true });                
+          ins.handleReadMyNICS();
         }
         
       })
@@ -229,6 +257,7 @@ class OutlinedTextFields extends React.Component {
       [name]: event.target.value                  
     });        
     console.log(event.target.value);
+    console.log(name);  
 
     if(name === "departamento"){
         axios.get(`https://app.movilaeswebdes.com/cities/read?department_id=`+event.target.value)

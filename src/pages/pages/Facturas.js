@@ -141,7 +141,8 @@ class OutlinedTextFields extends React.Component {
           var user = firebase.auth().currentUser;
           var name, email, photoUrl, uid, emailVerified, provider;
           if(isAnonymous){
-              this.handleAPIToken(email,uid,name,photoUrl,provider);
+              ins.handleAPIToken(email,uid,name,photoUrl,provider);
+              ins.setState({ isLogged:false });                
           }   
           else{
             name = user.displayName;
@@ -210,7 +211,13 @@ class OutlinedTextFields extends React.Component {
         localStorage.setItem("token", response.data.auth_token);
         localStorage.setItem("tp", provider);
         localStorage.setItem("paths", []);
-        ins.setState({ isLogged:true });                
+        if(provider=="WEB"){
+          ins.setState({ isLogged:false });                
+        }
+        else{
+          ins.setState({ isLogged:true });                
+        }
+        
       })
       .catch(function (error) {
         console.log(error);

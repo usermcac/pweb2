@@ -126,7 +126,7 @@ class OutlinedTextFields extends React.Component {
     console.log(event.target.value);
 
     if(name === "departamento"){
-        axios.get(`https://mcacdvmobileapi001.azurewebsites.net/cities/read?department_id=`+event.target.value)
+        axios.get(`https://app.movilaeswebdes.com/cities/read?department_id=`+event.target.value)
         .then(res => {
           const municipios = res.data.data;                 
           municipios.unshift({code: "0", created_at: null, department_id: null, id: 0, name: "Seleccione"});

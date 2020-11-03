@@ -48,19 +48,38 @@ export default class NewsCarousel extends React.Component {
             // User is signed in.
             var isAnonymous = user.isAnonymous;
             var uid = user.uid;
-            // ...          
-            localStorage.setItem("uid", uid);
+            
+            var user = firebase.auth().currentUser;
+            var name, email, photoUrl, uid, emailVerified;
+
+            if (user != null) {
+              name = user.displayName;
+              email = user.email;
+              photoUrl = user.photoURL;
+              emailVerified = user.emailVerified;
+              uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                               // this value to authenticate with your backend server, if
+                               // you have one. Use User.getToken() instead.
+                               user.providerData.forEach(function (profile) {
+                                console.log("Sign-in provider: " + profile.providerId);
+                                console.log("  Provider-specific UID: " + profile.uid);
+                                console.log("  Name: " + profile.displayName);
+                                console.log("  Email: " + profile.email);
+                                console.log("  Photo URL: " + profile.photoURL);
+                              });
+            }
+            localStorage.setItem("uid", uid);  
             //register to get token
-            axios.post('https://mcacdvmobileapi001.azurewebsites.net/auth/register', {
-              email: "n/d",
+            axios.post('https://app.movilaeswebdes.com/auth/register', {
+              email: email,
               firebase_uuid: uid,
               last_name: "n/d",
-              name:"n/d",
+              name:name,
               password:uid,
               phone_language: "es",
               provider:"Anonymous",
               push_tok:"n/d",
-              pic_url:""
+              pic_url:photoUrl
         },
         {
           headers: {            
@@ -95,13 +114,13 @@ export default class NewsCarousel extends React.Component {
         });
       }
       else{
-        
+
       }
       
       
 
 
-      axios.get(`https://mcacdvmobileapi001.azurewebsites.net/aes_news/read`)
+      axios.get(`https://app.movilaeswebdes.com/aes_news/read`)
         .then(res => {
           if (this._isMounted) {
           const personas = res.data.data;

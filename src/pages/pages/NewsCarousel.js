@@ -35,7 +35,7 @@ export default class NewsCarousel extends React.Component {
     }
     componentDidMount() {
       this._isMounted = true;
-      axios.get(`https://mcacdvmobileapi001.azurewebsites.net/aes_news/read`)
+      axios.get(`https://app.movilaeswebdes.com/aes_news/read`)
         .then(res => {
           if (this._isMounted) {
           const personas = res.data.data;

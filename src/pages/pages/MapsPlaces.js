@@ -140,7 +140,7 @@ class MapsPlaces extends React.Component {
     
     console.log("1FETCHING PLACES: "+ Newlat);
     console.log("1FETCHING PLACES: "+ Newlng);
-    axios.get(`https://mcacdvmobileapi001.azurewebsites.net/places/read?lt=`+Newlat+`&ln=`+Newlng)
+    axios.get(`https://app.movilaeswebdes.com/places/read?lt=`+Newlat+`&ln=`+Newlng)
         .then(res => {
           
           const places = res.data.data;
@@ -175,7 +175,7 @@ class MapsPlaces extends React.Component {
     
     console.log("2FETCHING PLACES: "+ Newlat);
     console.log("2FETCHING PLACES: "+ Newlng);
-    axios.get(`https://mcacdvmobileapi001.azurewebsites.net/places/read?lt=`+Newlat+`&ln=`+Newlng)
+    axios.get(`https://app.movilaeswebdes.com/places/read?lt=`+Newlat+`&ln=`+Newlng)
         .then(res => {        
           const places = res.data.data;
           places.forEach(function(part, index, theArray) {

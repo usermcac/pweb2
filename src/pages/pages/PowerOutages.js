@@ -83,7 +83,7 @@ class OutlinedTextFields extends React.Component {
     var token = localStorage.getItem("token");
     var ins = this;
     if(name === "descripcion" && this.state.descripcion.length>5){      
-      axios.post('https://mcacdvmobileapi001.azurewebsites.net/power_outgages/findByNIC', {
+      axios.post('https://app.movilaeswebdes.com/power_outgages/findByNIC', {
         nic: event.target.value
       },
       {

@@ -36,86 +36,8 @@ export default class NewsCarousel extends React.Component {
     }
     componentDidMount() {
       this._isMounted = true;
-      // var options = {
-      //   autoResubscribe:true,
-      // }
-      // OneSignal.initialize('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', options);
-      var token = localStorage.getItem("token");
-
-      if(token=="" || token == null){
-        firebase.auth().onAuthStateChanged(function(user) {
-          if (user) {
-            // User is signed in.
-            var isAnonymous = user.isAnonymous;
-            var uid = user.uid;
-            
-            var user = firebase.auth().currentUser;
-            var name, email, photoUrl, uid, emailVerified;
-
-            if (user != null) {
-              name = user.displayName;
-              email = user.email;
-              photoUrl = user.photoURL;
-              emailVerified = user.emailVerified;
-              uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                               // this value to authenticate with your backend server, if
-                               // you have one. Use User.getToken() instead.
-                               user.providerData.forEach(function (profile) {
-                                console.log("Sign-in provider: " + profile.providerId);
-                                console.log("  Provider-specific UID: " + profile.uid);
-                                console.log("  Name: " + profile.displayName);
-                                console.log("  Email: " + profile.email);
-                                console.log("  Photo URL: " + profile.photoURL);
-                              });
-            }
-            localStorage.setItem("uid", uid);  
-            //register to get token
-            axios.post('https://app.movilaeswebdes.com/auth/register', {
-              email: email,
-              firebase_uuid: uid,
-              last_name: "n/d",
-              name:name,
-              password:uid,
-              phone_language: "es",
-              provider:"Anonymous",
-              push_tok:"n/d",
-              pic_url:photoUrl
-        },
-        {
-          headers: {            
-              'Accept' : 'application/json',
-              'Content-Type': 'application/json'
-          }    
-      }
-        )
-        .then(function (response) {
-          
-          localStorage.setItem("token", response.data.auth_token);
-          localStorage.setItem("tp", "0");
-          localStorage.setItem("paths", []);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-  
-          } else {
-            localStorage.setItem("uid", "");
-            // User is signed out.
-            // ...
-          }
-          // ...
-        });
-  
-        firebase.auth().signInAnonymously().catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // ...
-        });
-      }
-      else{
-
-      }
+      
+      
       
       
 
@@ -129,6 +51,10 @@ export default class NewsCarousel extends React.Component {
         })
     }
     
+    handleLoginOrRegister(){
+
+    }
+
     componentWillUnmount() {
       this._isMounted = false;
     }

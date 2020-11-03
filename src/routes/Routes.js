@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { dashboard as dashboardRoutes, auth as authRoutes } from "./index";
+import { dashboard as dashboardRoutes} from "./index";
+// import { dashboard as dashboardRoutes, auth as authRoutes } from "./index";
 
 import DashboardLayout from "../layouts/Dashboard";
 import AuthLayout from "../layouts/Auth";
@@ -41,7 +42,8 @@ const Routes = () => (
   <Router>
     <Switch>
       {childRoutes(DashboardLayout, dashboardRoutes)}
-      {childRoutes(AuthLayout, authRoutes)}
+      {/* {childRoutes(AuthLayout, authRoutes)} */}
+      {/* {childRoutes(AuthLayout)} */}
       <Route
         render={() => (
           <AuthLayout>

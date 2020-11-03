@@ -7,8 +7,6 @@ import Helmet from 'react-helmet';
 import Icon from '@material-ui/core/Icon';
 import SendIcon from '@material-ui/icons/Send';
 import firebase from '../../firebase'
-import { useHistory } from "react-router-dom";
-
 import {
   Add as AddIcon,
   Archive as ArchiveIcon,
@@ -60,27 +58,7 @@ const Alert = styled(MuiAlert)(spacing);
 
 const handleSocialClick = (sns) => {
   console.log(sns);
-  var provider= firebase.auth.AuthProvider;
-        switch (sns) {
-            case "Facebook":
-                provider = new firebase.auth.FacebookAuthProvider();
-                console.log(provider, 'fbprovider');
-                break;
-            
-            case "Google":
-                provider = new firebase.auth.GoogleAuthProvider();
-                console.log(provider, 'gprovider');
-                break;            
-        
-            default:
-                throw new Error("Unsupported SNS" + sns)
-        }
-       firebase
-        .auth()
-        .signInWithRedirect(provider)
-        .catch();
 }
-
 
 
 class OutlinedTextFields extends React.Component {
@@ -298,7 +276,7 @@ class RightPanelImage extends React.Component {
 function TextFields() {
   return (
     <React.Fragment>
-      <Helmet title="Consulta y pago de facturas" />
+      <Helmet title="Gestiones" />
       
       <Grid
         justify="space-between"
@@ -307,7 +285,7 @@ function TextFields() {
       >
         <Grid item>
           <Typography variant="h3" gutterBottom display="inline">
-            Consulta y pago de facturas
+          Gestiones
           </Typography>
 
           <Breadcrumbs aria-label="Breadcrumb" mt={2}>
@@ -317,7 +295,7 @@ function TextFields() {
             <Link component={NavLink} exact to="/">
               Consultas
             </Link>
-            <Typography>Consulta y pago de facturas</Typography>
+            <Typography>Gestiones</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid item>

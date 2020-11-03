@@ -40,57 +40,65 @@ export default class NewsCarousel extends React.Component {
       //   autoResubscribe:true,
       // }
       // OneSignal.initialize('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', options);
+      var token = localStorage.getItem("token");
 
-
-
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          // ...          
-          localStorage.setItem("uid", uid);
-          //register to get token
-          axios.post('https://mcacdvmobileapi001.azurewebsites.net/auth/register', {
-            email: "n/d",
-            firebase_uuid: uid,
-            last_name: "n/d",
-            name:"n/d",
-            password:uid,
-            phone_language: "es",
-            provider:"Anonymous",
-            push_tok:"n/d",
-            pic_url:""
-      },
-      {
-        headers: {            
-            'Accept' : 'application/json',
-            'Content-Type': 'application/json'
-        }    
-    }
-      )
-      .then(function (response) {
-        
-        localStorage.setItem("token", response.data.auth_token);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-        } else {
-          localStorage.setItem("uid", "");
-          // User is signed out.
+      if(token=="" || token == null){
+        firebase.auth().onAuthStateChanged(function(user) {
+          if (user) {
+            // User is signed in.
+            var isAnonymous = user.isAnonymous;
+            var uid = user.uid;
+            // ...          
+            localStorage.setItem("uid", uid);
+            //register to get token
+            axios.post('https://mcacdvmobileapi001.azurewebsites.net/auth/register', {
+              email: "n/d",
+              firebase_uuid: uid,
+              last_name: "n/d",
+              name:"n/d",
+              password:uid,
+              phone_language: "es",
+              provider:"Anonymous",
+              push_tok:"n/d",
+              pic_url:""
+        },
+        {
+          headers: {            
+              'Accept' : 'application/json',
+              'Content-Type': 'application/json'
+          }    
+      }
+        )
+        .then(function (response) {
+          
+          localStorage.setItem("token", response.data.auth_token);
+          localStorage.setItem("tp", "0");
+          localStorage.setItem("paths", []);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  
+          } else {
+            localStorage.setItem("uid", "");
+            // User is signed out.
+            // ...
+          }
           // ...
-        }
-        // ...
-      });
-
-      firebase.auth().signInAnonymously().catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-      });
+        });
+  
+        firebase.auth().signInAnonymously().catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // ...
+        });
+      }
+      else{
+        
+      }
+      
+      
 
 
       axios.get(`https://mcacdvmobileapi001.azurewebsites.net/aes_news/read`)

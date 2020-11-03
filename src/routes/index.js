@@ -67,7 +67,11 @@ const FeatherIcons = async(() => import("../pages/icons/FeatherIcons"));
 // Pages components
 const Blank = async(() => import("../pages/pages/Blank"));
 const InvoiceDetails = async(() => import("../pages/pages/InvoiceDetails"));
-const InvoiceList = async(() => import("../pages/pages/InvoiceList"));
+const Facturas = async(() => import("../pages/pages/Facturas"));
+const Citas = async(() => import("../pages/pages/Citas"));
+const Gestiones = async(() => import("../pages/pages/Gestiones"));
+const Consumo = async(() => import("../pages/pages/Consumo"));
+const NuevoServicio = async(() => import("../pages/pages/NuevosServicios"));
 const Orders = async(() => import("../pages/pages/Orders"));
 const Pricing = async(() => import("../pages/pages/Pricing"));
 const Denuncias = async(() => import("../pages/pages/Denuncias"));
@@ -187,34 +191,34 @@ const invoiceRoutes = {
   icon: <Circle />,
   children: [
     {
-      path: "/invoices",
+      path: "/consulta_pago_de_facturas",
       name: "Consulta y pago de facturas",
-      component: InvoiceList
+      component: Facturas
     },
     {
-      path: "/invoices/detail",
+      path: "/citas",
       name: "Citas en oficinas comerciales",
-      component: Projects
+      component: Citas
     },
     {
-      path: "/invoices/detail",
+      path: "/gestiones",
       name: "Gestiones",
-      component: InvoiceDetails
+      component: Gestiones
     },
+    // {
+    //   path: "/invoices/detail",
+    //   name: "Calculadora de consumo",
+    //   component: Facturas
+    // },    
     {
-      path: "/invoices/detail",
-      name: "Calculadora de consumo",
-      component: InvoiceDetails
-    },    
-    {
-      path: "/invoices/detail",
+      path: "/consumo_en_linea",
       name: "Consumo en linea",
-      component: InvoiceDetails
+      component: Consumo
     },
     {
-      path: "/invoices/detail",
+      path: "/solicitud_nuevos_servicios",
       name: "Solicitud de servicio nuevo",
-      component: InvoiceDetails
+      component: NuevoServicio
     }
   ]
 };
@@ -244,39 +248,39 @@ const invoiceRoutes = {
 //   children: null
 // };
 
-const authRoutes = {
-  id: "Mi cuenta",
-  path: "/auth",
-  icon: <Users />,
-  children: [
-    {
-      path: "/auth/sign-in",
-      name: "Inicio de sesión",
-      component: SignIn
-    },
-    {
-      path: "/auth/sign-up",
-      name: "Registro",
-      component: SignUp
-    },
-    {
-      path: "/auth/reset-password",
-      name: "Recuperar contraseña",
-      component: ResetPassword
-    }
-    // ,
-    // {
-    //   path: "/auth/404",
-    //   name: "404 Page",
-    //   component: Page404
-    // },
-    // {
-    //   path: "/auth/500",
-    //   name: "500 Page",
-    //   component: Page500
-    // }
-  ]
-};
+// const authRoutes = {
+//   id: "Mi cuenta",
+//   path: "/auth",
+//   icon: <Users />,
+//   children: [
+//     {
+//       path: "/auth/sign-in",
+//       name: "Inicio de sesión",
+//       component: SignIn
+//     },
+//     {
+//       path: "/auth/sign-up",
+//       name: "Registro",
+//       component: SignUp
+//     },
+//     {
+//       path: "/auth/reset-password",
+//       name: "Recuperar contraseña",
+//       component: ResetPassword
+//     }
+//     // ,
+//     // {
+//     //   path: "/auth/404",
+//     //   name: "404 Page",
+//     //   component: Page404
+//     // },
+//     // {
+//     //   path: "/auth/500",
+//     //   name: "500 Page",
+//     //   component: Page500
+//     // }
+//   ]
+// };
 
 // const componentsRoutes = {
 //   id: "Components",
@@ -506,7 +510,7 @@ export const dashboard = [
   privateRoutes
 ];
 
-export const auth = [authRoutes];
+// export const auth = [authRoutes];
 
 export default [
   presentationRoutes,
@@ -518,7 +522,7 @@ export default [
   invoiceRoutes,
   // tasksRoutes,
   // calendarRoutes,
-  authRoutes,
+  // authRoutes,
   // componentsRoutes,
   //chartRoutes,
   //formsRoutes,

@@ -252,7 +252,6 @@ _renderSocialLoginRegister(){
        
           </Grid>
           </Grid>
-
        {/* <Button variant="outlined" onClick={() => handleSocialClick("Twitter")}>Número de teléfono</Button><br/><br/> */}
     </div>
   )

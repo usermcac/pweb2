@@ -94,93 +94,23 @@ class OutlinedTextFields extends React.Component {
     nic_actual: "",
     nics: [],
     isLoadingData: false,
-    isLogged:false
+    isLogged:false    
   };
   
   componentDidMount() {    
-    var user_type = localStorage.getItem("tp");
+    var is_logged = localStorage.getItem("api_stat");
 
-    this.handleLoginOrRegister();
+    if(is_logged=="1"){
+      this.setState({ isLogged:true });
       
-      
-      if(this.state.nics.length>0){
-          //hacer query del NIC en 0
-      }
-      else{
-        //mostrar pantalla de agregar NICS
-  
-      }
-    
+    }
+    else{
+      this.setState({ isLogged:false });
+    }
+
+        
   }
   
-  handleLoginOrRegister(){
-    var ins = this;
-    var token = localStorage.getItem("token");
-          
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-              console.log("Si hay usuario");
-              name = user.displayName;
-              email = user.email;
-              photoUrl = user.photoURL;
-              emailVerified = user.emailVerified;
-              uid = user.uid;  
-
-              user.providerData.forEach(function (profile) {
-              provider = profile.providerId;
-                                console.log("Sign-in provider: " + profile.providerId);
-                                console.log("  Provider-specific UID: " + profile.uid);
-                                console.log("  Name: " + profile.displayName);
-                                console.log("  Email: " + profile.email);
-                                console.log("  Photo URL: " + profile.photoURL);
-              });
-
-
-          var isAnonymous = user.isAnonymous;
-          var uid = user.uid;
-          var user = firebase.auth().currentUser;
-          var name, email, photoUrl, uid, emailVerified, provider;
-          if(isAnonymous){
-              console.log("Es anonimo");
-              ins.handleAPIToken(email,uid,name,photoUrl,provider);
-              ins.setState({ isLogged:false });                
-          }   
-          else{
-            console.log("NO ES ANONIMo");
-            name = user.displayName;
-            email = user.email;
-            photoUrl = user.photoURL;
-            emailVerified = user.emailVerified;
-            uid = user.uid;  
-
-                             user.providerData.forEach(function (profile) {
-                               provider = profile.providerId;
-                              // console.log("Sign-in provider: " + profile.providerId);
-                              // console.log("  Provider-specific UID: " + profile.uid);
-                              // console.log("  Name: " + profile.displayName);
-                              // console.log("  Email: " + profile.email);
-                              // console.log("  Photo URL: " + profile.photoURL);
-                            });
-            
-          }                                                                                               
-          localStorage.setItem("uid", uid);  
-          //register to get token            
-          ins.handleAPIToken(email,uid,name,photoUrl,provider)              
-        } else {
-          console.log("no hay usuario")
-          localStorage.setItem("uid", "");                    
-        }
-        // ...
-      });
-
-      firebase.auth().signInAnonymously().catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // ...
-      });
-    
-  }
   handleReadMyNICS(){
     //https://mcacdvmobileapi001.azurewebsites.net/user_profile/readNICS
     var token = localStorage.getItem("token");
@@ -196,63 +126,17 @@ class OutlinedTextFields extends React.Component {
                     )
                         .then(res => {        
 
-                            ins.setState({ isLogged:true });                
+                                       
                             console.log(res.data);
                             var nics = [];
                             nics = res.data;
-                            res.data.forEach( function(urlact, indice, array) { 
-                                console.log(urlact);
-                            });
+                            // res.data.forEach( function(urlact, indice, array) { 
+                            //     console.log(urlact);
+                            // });
                         });
                 
   }
 
-  handleAPIToken(email,uid,name,photoUrl,provider){
-    var ins = this;
-    if(email==null || email == ""){              
-      email =uid;              
-    }
-    if(photoUrl==null){
-      photoUrl ="n/d";
-    }
-    if(provider==null||provider==""){
-        provider="WEB"
-    }
-    axios.post('https://app.movilaeswebdes.com/auth/register', {
-            email: email,
-            firebase_uuid: uid,
-            last_name: "n/d",
-            name:name,
-            password:uid,
-            phone_language: "es",
-            provider:"web",
-            push_tok:"n/d",
-            pic_url:photoUrl
-      },
-      {
-        headers: {            
-            'Accept' : 'application/json',
-            'Content-Type': 'application/json'
-        }    
-    }
-      )
-      .then(function (response) {          
-        localStorage.setItem("token", response.data.auth_token);
-        localStorage.setItem("tp", provider);
-        localStorage.setItem("paths", []);
-        if(provider=="WEB"){
-          ins.setState({ isLogged:false });                
-        }
-        else{
-          ins.setState({ isLogged:true });                
-          ins.handleReadMyNICS();
-        }
-        
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
   handleChange = name => event => {
     this.setState({

@@ -155,6 +155,16 @@ class OutlinedTextFields extends React.Component {
     axios.get(`https://app.movilaeswebdes.com/account_operations/lastInvoice/`+nic['nic'])
     .then(res => {                
         ins.setState({ csmo:res.data.data['csmo_fact']});                                            
+        ins.setState({ mes:res.data.data['f_fact']});
+        ins.setState({ vencimiento:res.data.data['f_vencimiento'].replace("12:00:00 a.m.","")});                                            
+        ins.setState({ c_energia:res.data.data['consumo']});                                            
+        ins.setState({ c_otros:res.data.data['otros_servicios']});                                            
+        ins.setState({ c_alcaldia:res.data.data['alcaldia']});                                            
+        ins.setState({ total_pagar:res.data.data['saldo_pagar']});                                            
+        ins.setState({ titular:res.data.data['cliente']});                                            
+        ins.setState({ idcobro:res.data.data['id_cobro']});                                            
+        ins.setState({ npe:res.data.data['npe']});                                            
+        ins.setState({ url_fact:res.data.data['url']});                                            
     });
   }
 
@@ -258,10 +268,115 @@ _renderSocialLoginRegister(){
 }
 
 _renderLastBillData(){
+  
   return  (
-    <Typography variant="body2" gutterBottom align='justify' >
-          {this.state.csmo}
-    </Typography>
+    <div>
+    <Divider />
+    <Grid container spacing={3}>
+                  
+                      
+                      <Grid item xs={6} md={6} lg={6} xl={6}> 
+                        <Spacer mb={5} />  
+                          <Typography             
+                            variant="body2" gutterBottom display="block" >
+                            Consumo en kWh
+                          </Typography>
+                      </Grid>
+                    
+                    
+                        <Grid item xs={6} md={6} lg={6} xl={6}> 
+                        <Spacer mb={5} />  
+                        <Typography             
+                          variant="body2" align="right"  gutterBottom display="block" >
+                          {this.state.csmo}
+                        </Typography>                    
+                        </Grid>
+                   
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" gutterBottom display="block" >
+                      Mes facturado
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" align="right"  gutterBottom display="block" >
+                      {this.state.mes}
+                    </Typography>                    
+                    </Grid>
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2" gutterBottom display="block" >
+                      Fecha de vencimiento
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" align="right"  gutterBottom display="block" >
+                      {this.state.vencimiento}
+                    </Typography>                    
+                    </Grid>
+
+
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" gutterBottom display="block" >
+                      Cargo de energía
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" align="right"  gutterBottom display="block" >
+                      {this.state.c_energia}
+                    </Typography>                    
+                    </Grid>
+
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" gutterBottom display="block" >
+                      Otros servicios
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" align="right"  gutterBottom display="block" >
+                      {this.state.c_otros}
+                    </Typography>                    
+                    </Grid>
+
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" gutterBottom display="block" >
+                      Total alcaldia
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="body2" align="right"  gutterBottom display="block" >
+                      {this.state.c_alcaldia}
+                    </Typography>                    
+                    </Grid>
+
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2" gutterBottom display="block"  color="primary">
+                      Total a pagar
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2" color="primary" align="right"  gutterBottom display="block" >
+                      {this.state.total_pagar}
+                    </Typography>                    
+                    </Grid>
+    </Grid>
+    </div>
   )
 }
 
@@ -319,11 +434,16 @@ _renderLastBillData(){
                 </TextField>   
             </Grid>       
                     
-
+            <Spacer mb={20} />   
+            <Typography             
+            variant="h6"  gutterBottom display="block" color="primary">
+              Detalles de última factura
+            </Typography>
+            
+            <Spacer mb={10} />  
                 {!this.state.isLogged ? this._renderSocialLoginRegister() : 
                   this._renderLastBillData()
-                }       
-                
+                }                       
                 {this.state.nics.length==0&&this.state.isLogged ? this._renderAddNICS() : 
                 ""
                 }       

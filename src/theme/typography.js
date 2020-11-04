@@ -1,7 +1,7 @@
 const typography = {
   useNextVariants: true,
   fontFamily: [
-    "Nunito",
+    "Montserrat",
     "-apple-system",
     "BlinkMacSystemFont",
     '"Segoe UI"',

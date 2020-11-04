@@ -94,7 +94,18 @@ class OutlinedTextFields extends React.Component {
     nic_actual: "",
     nics: [],
     isLoadingData: false,
-    isLogged:false    
+    isLogged:false,
+    csmo:"",
+    mes:"",
+    vencimiento:"",
+    c_energia:"",
+    c_otros:"",
+    c_alcaldia:"",
+    total_pagar:"",
+    titular:"",
+    idcobro:"",
+    npe:"",
+    url_fact:""    
   };
   
   componentDidMount() {    
@@ -102,6 +113,7 @@ class OutlinedTextFields extends React.Component {
 
     if(is_logged=="1"){
       this.setState({ isLogged:true });
+      this.handleReadMyNICS();
       
     }
     else{
@@ -124,17 +136,26 @@ class OutlinedTextFields extends React.Component {
                                     }
                         }
                     )
-                        .then(res => {        
-
-                                       
-                            console.log(res.data);
-                            var nics = [];
-                            nics = res.data;
-                            // res.data.forEach( function(urlact, indice, array) { 
-                            //     console.log(urlact);
-                            // });
+                        .then(res => {                                              
+                            var nics_v = [];
+                            nics_v = res.data.data;
+                            console.log(nics_v);
+                            this.setState({ nics:nics_v });                            
+                            if(nics_v.length>0){
+                              this.loadLastInvoiceDetails(nics_v[0]);
+                            }
+                            
                         });
                 
+  }
+  
+  loadLastInvoiceDetails(nic){
+    // console.log(nic['user_alias']);
+    var ins = this;
+    axios.get(`https://app.movilaeswebdes.com/account_operations/lastInvoice/`+nic['nic'])
+    .then(res => {                
+        ins.setState({ csmo:res.data.data['csmo_fact']});                                            
+    });
   }
 
 
@@ -240,8 +261,8 @@ _renderSocialLoginRegister(){
 _renderLastBillData(){
   return  (
     <Typography variant="body2" gutterBottom align='justify' >
-          Ultima factura
-          </Typography>
+          {this.state.csmo}
+    </Typography>
   )
 }
 
@@ -257,11 +278,11 @@ _renderLastBillData(){
 
           <Paper mt={3}>
 
-          {/* <Grid container spacing={3}>
+          <Grid container spacing={3}>
                 <Grid item
                     xs={12} md={12} lg={12} xl={12}
                     >    
-                    <TextField
+                    {/* <TextField
                     fullWidth
                     select
                     length={7}
@@ -270,14 +291,34 @@ _renderLastBillData(){
                     type="number"
                     maxLength={7}                
                     m={1}
-                    value={this.state.descripcion}
+                    value={this.state.nics}
                     onInput = {(e) =>{
                       e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,7)
                   }}
                     onChange={this.handleChange("descripcion")}
                     variant="outlined"
-                    />                    
-            </Grid>        */}
+                    />                     */}
+
+                  <TextField
+                    fullWidth
+                    id="nics_select"
+                    select
+                    label="Selecciona un NIC"
+                    m={1}
+                    value={this.state.nics}
+                    onChange={this.handleChange("nics")}
+                    SelectProps={{
+                    native: true
+                    }}                
+                    variant="outlined"
+                >
+                    {this.state.nics.map(option => (                
+                    <option key={option.user_alias} value={option.nic}>
+                        {option.nic}      -        {option.user_alias}
+                    </option>
+                    ))}
+                </TextField>   
+            </Grid>       
                     
 
                 {!this.state.isLogged ? this._renderSocialLoginRegister() : 
@@ -288,7 +329,7 @@ _renderLastBillData(){
                 ""
                 }       
                 
-          {/* </Grid> */}
+          </Grid>
 
           </Paper>
         </CardContent>

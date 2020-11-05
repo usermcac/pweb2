@@ -375,6 +375,56 @@ _renderLastBillData(){
                       {this.state.total_pagar}
                     </Typography>                    
                     </Grid>
+
+                    <Grid item xs={12} md={12} lg={12} xl={12} > 
+                    <Typography             
+                      variant="subtitle2" color="primary" align="center"  gutterBottom display="block" >
+                    <Link href={"https://docs.google.com/viewer?url="+this.state.url_fact} >
+                      VER FACTURA
+                    </Link></Typography>
+                    </Grid>
+                    <Spacer mb={10} /> 
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2" gutterBottom display="block"  >
+                      Titular
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2"  align="right"  gutterBottom display="block" >
+                      {this.state.titular}
+                    </Typography>                    
+                    </Grid>
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2" gutterBottom display="block" >
+                      ID Cobro
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2"  align="right"  gutterBottom display="block" >
+                      {this.state.idcobro}
+                    </Typography>                    
+                    </Grid>
+
+
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2" gutterBottom display="block"  >
+                      NPE
+                    </Typography>
+                    </Grid>
+                    <Grid item xs={6} md={6} lg={6} xl={6}> 
+                    <Typography             
+                      variant="subtitle2"  align="right"  gutterBottom display="block" >
+                      {this.state.npe}
+                    </Typography>                    
+                    </Grid>
+
     </Grid>
     </div>
   )

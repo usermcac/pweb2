@@ -8,7 +8,7 @@ import Icon from '@material-ui/core/Icon';
 import SendIcon from '@material-ui/icons/Send';
 import firebase from '../../firebase'
 import { useHistory } from "react-router-dom";
-
+import ModalPayment from "./ModalPayments"
 import {
   Add as AddIcon,
   Archive as ArchiveIcon,
@@ -140,9 +140,9 @@ class OutlinedTextFields extends React.Component {
                             var nics_v = [];
                             nics_v = res.data.data;
                             console.log(nics_v);
-                            this.setState({ nics:nics_v });                            
+                            ins.setState({ nics:nics_v });                            
                             if(nics_v.length>0){
-                              this.loadLastInvoiceDetails(nics_v[0]);
+                              ins.loadLastInvoiceDetails(nics_v[0]);
                             }
                             
                         });
@@ -173,19 +173,21 @@ class OutlinedTextFields extends React.Component {
     this.setState({
       [name]: event.target.value                  
     });        
-    console.log(event.target.value);
-    console.log(name);  
-
-    if(name === "departamento"){
-        axios.get(`https://app.movilaeswebdes.com/cities/read?department_id=`+event.target.value)
-        .then(res => {
-          const municipios = res.data.data;                 
-          municipios.unshift({code: "0", created_at: null, department_id: null, id: 0, name: "Seleccione"});
-          console.log(municipios);
-          this.setState({ municipios });                
-        //   console.log(municipios);
-        });
+    // console.log(event.target.value);
+    // console.log(name);  
+    if(name ==="nic"){
+        this.loadLastInvoiceDetails(event.target.value);
     }
+    // if(name === "departamento"){
+    //     axios.get(`https://app.movilaeswebdes.com/cities/read?department_id=`+event.target.value)
+    //     .then(res => {
+    //       const municipios = res.data.data;                 
+    //       municipios.unshift({code: "0", created_at: null, department_id: null, id: 0, name: "Seleccione"});
+    //       console.log(municipios);
+    //       this.setState({ municipios });                
+    //     //   console.log(municipios);
+    //     });
+    // }
     
   };
 
@@ -387,7 +389,7 @@ _renderLastBillData(){
 
                     <Grid item xs={6} md={6} lg={6} xl={6}> 
                     <Typography             
-                      variant="subtitle2" gutterBottom display="block"  >
+                      variant="body2" gutterBottom display="block"  >
                       Titular
                     </Typography>
                     </Grid>
@@ -400,7 +402,7 @@ _renderLastBillData(){
 
                     <Grid item xs={6} md={6} lg={6} xl={6}> 
                     <Typography             
-                      variant="subtitle2" gutterBottom display="block" >
+                      variant="body2" gutterBottom display="block" >
                       ID Cobro
                     </Typography>
                     </Grid>
@@ -414,7 +416,7 @@ _renderLastBillData(){
 
                     <Grid item xs={6} md={6} lg={6} xl={6}> 
                     <Typography             
-                      variant="subtitle2" gutterBottom display="block"  >
+                      variant="body2" gutterBottom display="block"  >
                       NPE
                     </Typography>
                     </Grid>
@@ -425,6 +427,7 @@ _renderLastBillData(){
                     </Typography>                    
                     </Grid>
 
+                    <ModalPayment/>
     </Grid>
     </div>
   )
@@ -445,24 +448,7 @@ _renderLastBillData(){
           <Grid container spacing={3}>
                 <Grid item
                     xs={12} md={12} lg={12} xl={12}
-                    >    
-                    {/* <TextField
-                    fullWidth
-                    select
-                    length={7}
-                    id="descripcion_text"
-                    label="Selecciona un NIC"
-                    type="number"
-                    maxLength={7}                
-                    m={1}
-                    value={this.state.nics}
-                    onInput = {(e) =>{
-                      e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,7)
-                  }}
-                    onChange={this.handleChange("descripcion")}
-                    variant="outlined"
-                    />                     */}
-
+                    >                        
                   <TextField
                     fullWidth
                     id="nics_select"
@@ -470,7 +456,7 @@ _renderLastBillData(){
                     label="Selecciona un NIC"
                     m={1}
                     value={this.state.nics}
-                    onChange={this.handleChange("nics")}
+                    // onChange={this.handleChange("nics")}
                     SelectProps={{
                     native: true
                     }}                
